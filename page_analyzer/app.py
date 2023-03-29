@@ -6,4 +6,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def project_3():
-    return render_template('index.html')
+    return render_template('tempates/index.html')

@@ -6,4 +6,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def project_3():
-    return render_template('page_analyzer/templatest/main.html')
+    return render_template('python-project-83/page_analyzer/templatest/main.html')

@@ -12,6 +12,7 @@ gunicorn = "^20.1.0"
 flask = "^2.2.3"
 python-dotenv = "^1.0.0"
 jinja2 = "^3.1.2"
+psycopg2-binary = "^2.9.6"
 
 
 [tool.poetry.group.dev.dependencies]

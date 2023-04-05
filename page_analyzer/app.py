@@ -5,7 +5,6 @@ from flask import (
     redirect,
     url_for,
     flash,
-    get_flashed_messages,
 )
 import os
 import psycopg2

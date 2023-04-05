@@ -32,7 +32,7 @@ def url_post():
     except Exception:
         print('Can`t establish connection to database')
     data = request.args.get('url')
-    if validators.url(data) and len(data) <= 255:
+    if validators.url(data, public=True) and len(data) <= 255:
         time = date.today()
         with conn.cursor() as curs:
             curs.execute('SELECT id, name FROM urls WHERE name=%s', (data))

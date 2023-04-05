@@ -42,7 +42,6 @@ def url_post():
                                 VALUES (%s, %s)""",
                              (data, time))
                 flash('Страница успешно добавлена', 'success')
-            conn.close()
             return redirect(url_for('page_url', id=url[0]))
     conn.close()
     return redirect(url_for('project_3'))

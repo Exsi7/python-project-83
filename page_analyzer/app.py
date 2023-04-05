@@ -53,7 +53,6 @@ def page_url(id):
     with conn.cursor as curs:
         curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
-        conn.close()
         return render_template(
             'url.html',
             name=url[1]

@@ -30,7 +30,8 @@ def url_post():
         conn = psycopg2.connect(DATABASE_URL)
     except Exception:
         print('Can`t establish connection to database')
-    data = request.args.get('url')
+    data_dict = request.form.to_dict()
+    data = data_dict[0]
     if validators.url(data, public=True) and len(data) <= 255:
         time = date.today()
         with conn.cursor() as curs:

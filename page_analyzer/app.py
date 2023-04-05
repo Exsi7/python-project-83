@@ -15,10 +15,8 @@ from datetime import date
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-try:
-    conn = psycopg2.connect(DATABASE_URL)
-except:
-    print('Can`t establish connection to database')
+conn = psycopg2.connect(DATABASE_URL)
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
@@ -52,7 +50,7 @@ def url_post():
 
 @app.route('/urls/<id>')
 def page_url(id):
-    with conn.cursor() as curs:
+    with conn.cursor as curs:
         curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
         conn.close()

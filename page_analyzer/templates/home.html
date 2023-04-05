@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="container text-center bg-dark-subtle">
+    <form action="/" method="post" class="row justify-content-center">
+      <h1>Анализатор страниц</h1>
+      <label for="searchInput" class="form-label">Бесплатно проверяйте сайты на SEO пригодность</label>
+      <div class="col-md-auto">
+        <input class="form-control form-control-lg" id="searchInput" type="search" name="url" placeholder="https://www.example.com" aria-label="search">
+      </div>
+      <div class="col-md-auto">
+        <button type="submit" class="btn btn-primary mb-3">ПРОВЕРИТЬ</button>
+      </div>
+    </form>
+</div>
+{% endblock %}

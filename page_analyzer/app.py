@@ -31,7 +31,7 @@ def url_post():
     except Exception:
         print('Can`t establish connection to database')
     data_dict = request.form.to_dict()
-    data = data_dict[0]
+    data = data_dict['url']
     if validators.url(data, public=True) and len(data) <= 255:
         time = date.today()
         with conn.cursor() as curs:

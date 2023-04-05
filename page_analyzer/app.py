@@ -15,7 +15,10 @@ from datetime import date
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(DATABASE_URL)
+try:
+    conn = psycopg2.connect(DATABASE_URL)
+except:
+    print('Can`t establish connection to database')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 

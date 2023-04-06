@@ -14,8 +14,8 @@ from datetime import date
 
 
 config = dotenv_values(".env")
-DATABASE_URL = config["DATABASE_URL"]
-conn = psycopg2.connect(DATABASE_URL)
+DATABASE = config["DATABASE_URL"]
+conn = psycopg2.connect(DATABASE)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')

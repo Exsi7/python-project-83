@@ -9,12 +9,12 @@ from flask import (
 import os
 import psycopg2
 import validators
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 from datetime import date
 
 
-load_dotenv()
-DATABASE_URL = os.getenv('DATABASE_URL')
+config = dotenv_values(".env")
+DATABASE_URL = config["DATABASE_URL"]
 conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)

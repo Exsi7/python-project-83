@@ -16,7 +16,7 @@ from datetime import date
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 PASSWORD = os.getenv('PASSWORD')
-conn = psycopg2.connect(dbname='project3', user='viktorzotov', password=PASSWORD, host='localhost', port='5432')
+conn = psycopg2.connect(dbname='project3', user='viktorzotov', password=PASSWORD, host='/tmp/', port='5432')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')

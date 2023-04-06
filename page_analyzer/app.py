@@ -12,8 +12,8 @@ import validators
 from dotenv import load_dotenv
 from datetime import date
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+
+load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 print(DATABASE_URL)
 conn = psycopg2.connect(DATABASE_URL)

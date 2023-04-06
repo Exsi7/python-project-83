@@ -16,6 +16,8 @@ from datetime import date
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 print(DATABASE_URL)
+print(DATABASE_URL)
+print(DATABASE_URL)
 conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)

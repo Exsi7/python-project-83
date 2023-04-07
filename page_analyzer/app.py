@@ -9,19 +9,20 @@ from flask import (
 import os
 import psycopg2
 import validators
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv, find_dotenv, dotenv_values
 from datetime import date
 
 
 load_dotenv('~/python-project-83/.env')
+values = dotenv_values(".env")
 DATABASE_URL = os.getenv('DATABASE_URL')
 PORT = os.getenv('PORT')
 PASSWORD = os.getenv('PASSWORD')
 print(DATABASE_URL)
 print(DATABASE_URL)
 print(DATABASE_URL)
-print(PORT)
 print(PASSWORD)
+print(values["PASSWORD"])
 
 conn = psycopg2.connect(DATABASE_URL)
 

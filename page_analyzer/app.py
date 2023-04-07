@@ -13,8 +13,7 @@ from dotenv import load_dotenv, find_dotenv, dotenv_values
 from datetime import date
 
 
-load_dotenv()
-values = dotenv_values(".env")
+load_dotenv(find_dotenv())
 DATABASE_URL = os.getenv('DATABASE_URL')
 PORT = os.getenv('PORT')
 PASSWORD = os.getenv('PASSWORD')
@@ -22,7 +21,6 @@ print(DATABASE_URL)
 print(DATABASE_URL)
 print(DATABASE_URL)
 print(PASSWORD)
-print(values["PASSWORD"])
 
 conn = psycopg2.connect(DATABASE_URL)
 

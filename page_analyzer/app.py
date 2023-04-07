@@ -13,7 +13,7 @@ from dotenv import load_dotenv, find_dotenv, dotenv_values
 from datetime import date
 
 
-load_dotenv(find_dotenv())
+load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 PORT = os.getenv('PORT')
 PASSWORD = os.getenv('PASSWORD')

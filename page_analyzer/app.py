@@ -13,7 +13,7 @@ from dotenv import load_dotenv, find_dotenv, dotenv_values
 from datetime import date
 
 
-load_dotenv('~/python-project-83/.env')
+load_dotenv()
 values = dotenv_values(".env")
 DATABASE_URL = os.getenv('DATABASE_URL')
 PORT = os.getenv('PORT')

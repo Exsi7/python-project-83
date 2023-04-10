@@ -15,7 +15,6 @@ from datetime import date
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-print(DATABASE_URL)
 conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)
@@ -33,23 +32,24 @@ def url_post():
     data = data_dict['url']
     if validators.url(data) and len(data) <= 255:
         time = date.today()
-        with conn.cursor as curs:
-            curs.execute('SELECT id, name FROM urls WHERE name=%s', (data))
+        with conn.cursor() as curs:
+            curs.execute('SELECT id, name FROM urls WHERE name=%s', (data,))
             url = curs.fetchone()
-            if data == url[1]:
+            print(url)
+            if url is not None:
                 flash('Страница уже существует', 'success')
+                return redirect(url_for('page_url', id=url[0]))
             else:
                 curs.execute("""INSERT INTO urls (name, created_at)
                                 VALUES (%s, %s)""",
                              (data, time))
                 flash('Страница успешно добавлена', 'success')
-            return redirect(url_for('page_url', id=url[0]))
     return redirect(url_for('project_3'))
 
 
 @app.route('/urls/<id>')
 def page_url(id):
-    with conn.cursor as curs:
+    with conn.cursor() as curs:
         curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
         return render_template(

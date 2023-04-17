@@ -63,3 +63,14 @@ def page_url(id):
             name=url[1],
             messages=messages,
         )
+
+
+@app.route('/urls')
+def urls():
+    with conn.cursor() as curs:
+        curs.execute('SELECT * FROM urls')
+        data = curs.fetchall()
+        return render_template(
+            'urls.html',
+            data=data,
+        )

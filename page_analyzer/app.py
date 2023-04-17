@@ -15,10 +15,6 @@ from datetime import date
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-PASSWORD=os.getenv('TEST_PASSWORD')
-print(PASSWORD)
-print(PASSWORD)
-print(PASSWORD)
 conn = psycopg2.connect(DATABASE_URL)
 
 app = Flask(__name__)

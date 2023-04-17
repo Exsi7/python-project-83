@@ -65,6 +65,8 @@ def page_url(id):
         messages = get_flashed_messages(with_categories=True)
         curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
+        curs.execute('SELECT * FROM url_checks where url_id=%s', (id,))
+        url_checks = curs.fetchone()
         return render_template(
             'url.html',
             id_url=url[0],
@@ -83,3 +85,16 @@ def urls():
             'urls.html',
             urls=urls,
         )
+
+
+@app.post('/urls/<id>/checks')
+def checks():
+    with conn.cursor() as curs:
+        curs.execute('SELECT id, name FROM urls WHERE id=%s', ({id}))
+        url = curs.fetchone()
+        time = date.today()
+        curs.execute("""INSERT INTO url_checks (url_id, created_at)
+                        VALUES(%s, %s)""",
+                     (url[0], time))
+        return redirect(url_for('page_url', id=url[0]))
+

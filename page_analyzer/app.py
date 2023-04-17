@@ -45,7 +45,11 @@ def url_post():
                                 VALUES (%s, %s)""",
                              (data, time))
                 flash('Страница успешно добавлена', 'success')
-    return redirect(url_for('page_url'))
+                curs.execute('SELECT id FROM urls WHERE name=%s', (data,))
+                id_new=curs.fetchone()
+                print(id_new)
+                return redirect(url_for('page_url',id=id_new[0]))
+    return redirect(url_for('project_3'))
 
 
 @app.route('/urls/<id>')

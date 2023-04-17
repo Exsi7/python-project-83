@@ -1,6 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
-<div>
+<div class="container">
     {% if messages %}
         {% for category, message in messages %}
             <div class="alert alert-{{ category }}">
@@ -9,5 +9,19 @@
         {% endfor %}
     {% endif %}
     <h1>Сайт: {{ name }}</h1>
+    <table class="table table-light table-bordered">
+        <tr>
+            <td>ID</td>
+            <td>{{ id_url }}</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>{{ name }}</td>
+        </tr>
+        <tr>
+            <td>Дата создания</td>
+            <td>{{ time }}</td>
+        </tr>
+    </table>
 </div>
 {% endblock %}

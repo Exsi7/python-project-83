@@ -38,7 +38,7 @@ def url_post():
             url = curs.fetchone()
             print(url)
             if url is not None:
-                flash('Страница уже существует', 'success')
+                flash('Страница уже существует', 'info')
                 return redirect(url_for('page_url', id=url[0]))
             else:
                 curs.execute("""INSERT INTO urls (name, created_at)
@@ -60,7 +60,9 @@ def page_url(id):
         url = curs.fetchone()
         return render_template(
             'url.html',
+            id_url=url[0],
             name=url[1],
+            time=url[2],
             messages=messages,
         )
 

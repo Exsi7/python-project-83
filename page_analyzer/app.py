@@ -43,7 +43,7 @@ def url_post():
             else:
                 curs.execute("""INSERT INTO urls (id, name, created_at)
                                 VALUES (%s, %s)""",
-                             (id_start, data, time))
+                             (str(id_start), data, time))
                 id_start = id_start + 1
                 flash('Страница успешно добавлена', 'success')
     return redirect(url_for('project_3'))

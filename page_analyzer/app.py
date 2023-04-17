@@ -88,7 +88,7 @@ def urls():
 
 
 @app.post('/urls/<id>/checks')
-def checks():
+def checks(id):
     with conn.cursor() as curs:
         curs.execute('SELECT id, name FROM urls WHERE id=%s', ({id}))
         url = curs.fetchone()

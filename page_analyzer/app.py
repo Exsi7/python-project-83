@@ -24,7 +24,11 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 @app.route('/')
 def project_3():
-    return render_template('home.html')
+    messages = get_flashed_messages(with_categories=True)
+    return render_template(
+        'home.html',
+        messages=messages,
+        )
 
 
 @app.post('/urls')
@@ -49,6 +53,9 @@ def url_post():
                 id_new=curs.fetchone()
                 print(id_new)
                 return redirect(url_for('page_url',id=id_new[0]))
+    if data is None:
+        flash('URL обязателен', 'danger')
+    flash('Некорректный URL', 'danger')
     return redirect(url_for('project_3'))
 
 

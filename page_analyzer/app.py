@@ -68,9 +68,9 @@ def page_url(id):
 @app.route('/urls')
 def urls():
     with conn.cursor() as curs:
-        curs.execute('SELECT * FROM urls')
-        data = curs.fetchall()
+        curs.execute('SELECT id, name FROM urls')
+        urls = curs.fetchall()
         return render_template(
             'urls.html',
-            data=data,
+            urls=urls,
         )

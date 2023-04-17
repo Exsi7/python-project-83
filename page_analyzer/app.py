@@ -33,6 +33,7 @@ def url_post():
     if validators.url(data) and len(data) <= 255:
         time = date.today()
         with conn.cursor() as curs:
+            id_start=1
             curs.execute('SELECT id, name FROM urls WHERE name=%s', (data,))
             url = curs.fetchone()
             print(url)
@@ -40,9 +41,10 @@ def url_post():
                 flash('Страница уже существует', 'success')
                 return redirect(url_for('page_url', id=url[0]))
             else:
-                curs.execute("""INSERT INTO urls (name, created_at)
+                curs.execute("""INSERT INTO urls (id, name, created_at)
                                 VALUES (%s, %s)""",
-                             (data, time))
+                             (id_start, data, time))
+                id_start = id_start + 1
                 flash('Страница успешно добавлена', 'success')
     return redirect(url_for('project_3'))
 

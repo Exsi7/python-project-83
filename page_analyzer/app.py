@@ -21,7 +21,7 @@ conn = psycopg2.connect(DATABASE_URL)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-
+with conn:
 @app.route('/')
 def project_3():
     return render_template('home.html')
@@ -59,3 +59,4 @@ def page_url(id):
             name=url[1],
             messages=messages,
         )
+conn.close()

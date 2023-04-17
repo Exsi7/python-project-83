@@ -2,12 +2,12 @@
 {% block content %}
 <div>
     {% if messages %}
-        <ul class="flashes">
         {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
+            <div class="alert alert-{{ category }}">{
+                { message }}
+            </div>
         {% endfor %}
-        </ul>
     {% endif %}
-    <h1>Сайтs: {{ name }}</h1>
+    <h1>Сайт: {{ name }}</h1>
 </div>
 {% endblock %}

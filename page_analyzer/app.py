@@ -74,14 +74,13 @@ def page_url(id):
                 name=url[1],
                 time=url[2],
                 messages=messages,
-            )
-            
+            )   
         return render_template(
             'url.html',
             id_url=url[0],
             name=url[1],
             time=url[2],
-            url_checks=url_checks,
+            data=url_checks,
             messages=messages,
         )
 

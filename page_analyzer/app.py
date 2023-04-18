@@ -90,9 +90,7 @@ def urls():
 @app.post('/urls/<id>/checks')
 def checks(id):
     with conn.cursor() as curs:
-        url_id = {id}
-        print(url_id)
-        curs.execute('SELECT id, name FROM urls WHERE id=%s', (url_id,))
+        curs.execute('SELECT id, name FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
         time = date.today()
         curs.execute("""INSERT INTO url_checks (url_id, created_at)

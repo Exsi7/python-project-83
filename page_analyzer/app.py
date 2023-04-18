@@ -111,7 +111,7 @@ def checks(id):
         r = requests.get(url[1])
         code = r.status_code
         if code == requests.codes.ok:
-            soup = BeautifulSoup(url[1], 'html.parser')
+            soup = BeautifulSoup(r.text, 'html.parser')
             print(type(soup))
             print(url[1])
             h1 = soup.h1.get_text()

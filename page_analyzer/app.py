@@ -98,7 +98,6 @@ def urls():
         return render_template(
             'urls.html',
             urls=urls,
-            messages=messages,
         )
 
 

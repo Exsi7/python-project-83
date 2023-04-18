@@ -66,9 +66,9 @@ def page_url(id):
         messages = get_flashed_messages(with_categories=True)
         curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
-        curs.execute('SELECT * FROM url_checks where url_id=%s', (id,))
+        curs.execute("""SELECT * FROM url_checks WHERE url_id=%s
+                        ORDER BY id DESC""", (id,))
         url_checks = curs.fetchall()
-        url_checks.reverse()
         if url_checks is None:
             return render_template(
                 'url.html',

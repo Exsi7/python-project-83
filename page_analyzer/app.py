@@ -12,6 +12,7 @@ import psycopg2
 import validators
 from dotenv import load_dotenv, find_dotenv, dotenv_values
 from datetime import date
+import requests
 
 
 load_dotenv()
@@ -88,14 +89,17 @@ def page_url(id):
 
 @app.route('/urls')
 def urls():
+    messages = get_flashed_messages(with_categories=True)
     with conn.cursor() as curs:
-        curs.execute("""SELECT urls.id AS url_id, name, url_checks.created_at AS created_at 
+        curs.execute("""SELECT urls.id AS url_id, name,
+        url_checks.created_at AS created_at, status_code
         FROM urls LEFT JOIN url_checks ON urls.id = url_checks.url_id 
         ORDER BY urls.id""")
         urls = curs.fetchall()
         return render_template(
             'urls.html',
             urls=urls,
+            messages=messages,
         )
 
 
@@ -105,8 +109,14 @@ def checks(id):
         curs.execute('SELECT id, name FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
         time = date.today()
-        curs.execute("""INSERT INTO url_checks (url_id, created_at)
-                        VALUES(%s, %s)""",
-                     (url[0], time))
-        return redirect(url_for('page_url', id=url[0]))
+        r = requests.get(url[1])
+        code = r.status_code
+        if code == requests.codes.ok:
+            curs.execute("""INSERT INTO url_checks (url_id, 
+                            status_code, created_at)
+                            VALUES(%s, %s, %s)""",
+                        (url[0], code, time))
+            return redirect(url_for('page_url', id=url[0]))
+        flash('Произошла ошибка при проверке', 'danger')
+        return redirect(url_for('urls'))
 

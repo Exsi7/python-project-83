@@ -116,5 +116,5 @@ def checks(id):
                         (url[0], code, time))
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
-        return redirect(url_for('page_url'))
+        return redirect(url_for('page_url', id=url[0]))
 

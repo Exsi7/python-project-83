@@ -13,6 +13,7 @@ import validators
 from dotenv import load_dotenv, find_dotenv, dotenv_values
 from datetime import date
 import requests
+from bs4 import BeautifulSoup
 
 
 load_dotenv()
@@ -110,10 +111,16 @@ def checks(id):
         r = requests.get(url[1])
         code = r.status_code
         if code == requests.codes.ok:
+            soup = BeautifulSoup(url[1], 'html.parser')
+            h1 = soup.h1.get_text()
+            title = soup.title.get_text()
+            atrmeta = soup.find_all("meta", attrs = {"name": "description"})
+            soup1 = BeautifulSoup(str(atrmeta[0]), 'html.parser')
+            meta = soup1.meta['content']
             curs.execute("""INSERT INTO url_checks (url_id, 
-                            status_code, created_at)
-                            VALUES(%s, %s, %s)""",
-                        (url[0], code, time))
+                            status_code, h1, title, description, created_at)
+                            VALUES(%s, %s, %s, %s, %s, %s)""",
+                        (url[0], code, h1, title, meta, time))
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('page_url', id=url[0]))

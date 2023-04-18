@@ -72,6 +72,7 @@ def page_url(id):
             id_url=url[0],
             name=url[1],
             time=url[2],
+            url_checks=url_checks,
             messages=messages,
         )
 

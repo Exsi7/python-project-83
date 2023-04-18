@@ -67,6 +67,7 @@ def page_url(id):
         url = curs.fetchone()
         curs.execute('SELECT * FROM url_checks where url_id=%s', (id,))
         url_checks = curs.fetchall()
+        url_checks.reverse()
         if url_checks is None:
             return render_template(
                 'url.html',

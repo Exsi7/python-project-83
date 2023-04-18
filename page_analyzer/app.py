@@ -90,10 +90,10 @@ def page_url(id):
 @app.route('/urls')
 def urls():
     with conn.cursor() as curs:
-        curs.execute("""SELECT urls.id AS url_id, name,
+        curs.execute("""SELECT DISTINCT ON (urls.id) urls.id AS url_id, name,
         url_checks.created_at AS created_at, status_code
         FROM urls LEFT JOIN url_checks ON urls.id = url_checks.url_id 
-        ORDER BY urls.id""")
+        ORDER BY urls.id DESC""")
         urls = curs.fetchall()
         return render_template(
             'urls.html',

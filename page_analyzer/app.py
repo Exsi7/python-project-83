@@ -89,7 +89,6 @@ def page_url(id):
 
 @app.route('/urls')
 def urls():
-    messages = get_flashed_messages(with_categories=True)
     with conn.cursor() as curs:
         curs.execute("""SELECT urls.id AS url_id, name,
         url_checks.created_at AS created_at, status_code
@@ -118,5 +117,5 @@ def checks(id):
                         (url[0], code, time))
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
-        return redirect(url_for('urls'))
+        return redirect(url_for('page_url'))
 

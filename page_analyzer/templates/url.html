@@ -38,6 +38,7 @@
             <th>description</th>
             <th>Дата создания</th>
         </tr>
+        {% for data in url_checks %}
         {% if data %}
         <tr>
             <td>{{ data[0] }}</td>
@@ -48,6 +49,7 @@
             <td>{{ data[5] }}</td>
         </tr>
         {% endif %}
+        {% endfor %}
     </table>
 </div>
 {% endblock %}

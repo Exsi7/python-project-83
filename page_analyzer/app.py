@@ -66,7 +66,7 @@ def page_url(id):
         curs.execute('SELECT * FROM urls WHERE id=%s', (id,))
         url = curs.fetchone()
         curs.execute('SELECT * FROM url_checks where url_id=%s', (id,))
-        url_checks = curs.fetchone()
+        url_checks = curs.fetchall()
         if url_checks is None:
             return render_template(
                 'url.html',
@@ -80,7 +80,7 @@ def page_url(id):
             id_url=url[0],
             name=url[1],
             time=url[2],
-            data=url_checks,
+            url_checks=url_checks,
             messages=messages,
         )
 

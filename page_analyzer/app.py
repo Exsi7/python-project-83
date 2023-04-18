@@ -114,11 +114,21 @@ def checks(id):
             soup = BeautifulSoup(r.text, 'html.parser')
             print(type(soup))
             print(url[1])
-            h1 = soup.h1.get_text()
-            title = soup.title.get_text()
-            atrmeta = soup.find_all("meta", attrs = {"name": "description"})
-            soup1 = BeautifulSoup(str(atrmeta[0]), 'html.parser')
-            meta = soup1.meta['content']
+            if soup.h1:
+                h1 = soup.h1.get_text()
+            else:
+                h1 = ''
+            if soup.title:
+                title = soup.title.get_text()
+            else:
+                title = ''
+            atrmeta = soup.find_all("meta", attrs = {"name": "description",
+                                    "content": True})
+            if atrmeta == []:
+                meta = ''
+            else:
+                soup1 = BeautifulSoup(str(atrmeta[0]), 'html.parser')
+                meta = soup1.meta['content']
             curs.execute("""INSERT INTO url_checks (url_id, 
                             status_code, h1, title, description, created_at)
                             VALUES(%s, %s, %s, %s, %s, %s)""",

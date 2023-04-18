@@ -38,6 +38,7 @@
             <th>description</th>
             <th>Дата создания</th>
         </tr>
+        {% if data %}
         <tr>
             <td>{{ data[0] }}</td>
             <td>{{ data[1] }}</td>
@@ -46,6 +47,7 @@
             <td>{{ data[4] }}</td>
             <td>{{ data[5] }}</td>
         </tr>
+        {% endif %}
     </table>
 </div>
 {% endblock %}

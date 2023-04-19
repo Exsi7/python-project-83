@@ -10,7 +10,7 @@ from flask import (
 import os
 import psycopg2
 import validators
-from dotenv import load_dotenv, find_dotenv, dotenv_values
+from dotenv import load_dotenv
 from datetime import date
 import requests
 from bs4 import BeautifulSoup
@@ -19,10 +19,12 @@ from bs4 import BeautifulSoup
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(DATABASE_URL)
-conn.autocommit=True
+conn.autocommit = True
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
 
 @app.route('/')
 def project_3():
@@ -42,7 +44,6 @@ def url_post():
         with conn.cursor() as curs:
             curs.execute('SELECT id, name FROM urls WHERE name=%s', (data,))
             url = curs.fetchone()
-            print(url)
             if url is not None:
                 flash('Страница уже существует', 'info')
                 return redirect(url_for('page_url', id=url[0]))
@@ -52,9 +53,8 @@ def url_post():
                              (data, time))
                 flash('Страница успешно добавлена', 'success')
                 curs.execute('SELECT id FROM urls WHERE name=%s', (data,))
-                id_new=curs.fetchone()
-                print(id_new)
-                return redirect(url_for('page_url',id=id_new[0]))
+                id_new = curs.fetchone()
+                return redirect(url_for('page_url', id=id_new[0]))
     flash('Некорректный URL', 'danger')
     if data == '':
         flash('URL обязателен', 'danger')
@@ -77,7 +77,7 @@ def page_url(id):
                 name=url[1],
                 time=url[2],
                 messages=messages,
-            )   
+            )
         return render_template(
             'url.html',
             id_url=url[0],
@@ -93,7 +93,7 @@ def urls():
     with conn.cursor() as curs:
         curs.execute("""SELECT DISTINCT ON (urls.id) urls.id AS url_id, name,
         url_checks.created_at AS created_at, status_code
-        FROM urls LEFT JOIN url_checks ON urls.id = url_checks.url_id 
+        FROM urls LEFT JOIN url_checks ON urls.id = url_checks.url_id
         ORDER BY urls.id DESC""")
         urls = curs.fetchall()
         return render_template(
@@ -112,8 +112,6 @@ def checks(id):
         code = r.status_code
         if code == requests.codes.ok:
             soup = BeautifulSoup(r.text, 'html.parser')
-            print(type(soup))
-            print(url[1])
             if soup.h1:
                 h1 = soup.h1.get_text()
             else:
@@ -122,18 +120,17 @@ def checks(id):
                 title = soup.title.get_text()
             else:
                 title = ''
-            atrmeta = soup.find_all("meta", attrs = {"name": "description",
+            atrmeta = soup.find_all("meta", attrs={"name": "description",
                                     "content": True})
             if atrmeta == []:
                 meta = ''
             else:
                 soup1 = BeautifulSoup(str(atrmeta[0]), 'html.parser')
                 meta = soup1.meta['content']
-            curs.execute("""INSERT INTO url_checks (url_id, 
+            curs.execute("""INSERT INTO url_checks (url_id,
                             status_code, h1, title, description, created_at)
                             VALUES(%s, %s, %s, %s, %s, %s)""",
-                        (url[0], code, h1, title, meta, time))
+                         (url[0], code, h1, title, meta, time))
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('page_url', id=url[0]))
-

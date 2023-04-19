@@ -61,7 +61,7 @@ def url_post():
     flash('Некорректный URL', 'danger')
     if data == '':
         flash('URL обязателен', 'danger')
-    return redirect(url_for('project_3'), 422)
+    return redirect(url_for('project_3'), code=422)
 
 
 @app.route('/urls/<id>')

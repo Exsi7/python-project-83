@@ -142,4 +142,8 @@ def checks(id):
 
 @app.errorhandler(422)
 def page_422(error):
-    return redirect((url_for('project_3')))
+    messages = get_flashed_messages(with_categories=True)
+    return render_template(
+        'home.html',
+        messages=messages,
+    ), 422

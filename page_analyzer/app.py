@@ -33,7 +33,7 @@ def project_3():
     return render_template(
         'home.html',
         messages=messages,
-    ), code
+    )
 
 
 @app.post('/urls')

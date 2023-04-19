@@ -142,4 +142,4 @@ def checks(id):
 
 @app.errorhandler(422)
 def page_422(error):
-    return redirect((url_for('project_3'))
+    return redirect((url_for('project_3')))

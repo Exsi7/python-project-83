@@ -29,7 +29,6 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 @app.route('/')
 def project_3():
-    code = 302
     messages = get_flashed_messages(with_categories=True)
     return render_template(
         'home.html',

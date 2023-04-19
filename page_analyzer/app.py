@@ -30,10 +30,15 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 @app.route('/')
 def project_3():
     messages = get_flashed_messages(with_categories=True)
+    if messages:
+        return render_template(
+            'home.html',
+            messages=messages,
+        )
     return render_template(
-        'home.html',
-        messages=messages,
-    )
+            'home.html',
+            messages=messages,
+    ), 422
 
 
 @app.post('/urls')
@@ -61,7 +66,7 @@ def url_post():
     flash('Некорректный URL', 'danger')
     if data == '':
         flash('URL обязателен', 'danger')
-    return redirect(url_for('project_3'), code=422)
+    return redirect(url_for('project_3'))
 
 
 @app.route('/urls/<id>')
@@ -138,12 +143,3 @@ def checks(id):
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('page_url', id=url[0]))
-
-
-@app.errorhandler(422)
-def page_422(error):
-    messages = get_flashed_messages(with_categories=True)
-    return render_template(
-        'home.html',
-        messages=messages,
-    ), 422

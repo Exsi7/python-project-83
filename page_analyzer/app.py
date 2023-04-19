@@ -131,6 +131,7 @@ def checks(id):
                             status_code, h1, title, description, created_at)
                             VALUES(%s, %s, %s, %s, %s, %s)""",
                          (url[0], code, h1, title, meta, time))
+            flash('Страница успешно проверена', 'success')
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('page_url', id=url[0]))

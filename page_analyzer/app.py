@@ -45,8 +45,8 @@ def url_post():
         with conn.cursor() as curs:
             curs.execute('SELECT id, name FROM urls WHERE name=%s', (data,))
             url = curs.fetchone()
-            url_parse = urlparse(url)
-            url = url_parse.scheme + '://' + url_parse.hostname
+            url_parse = urlparse(data)
+            data = url_parse.scheme + '://' + url_parse.hostname
             if url is not None:
                 flash('Страница уже существует', 'info')
                 return redirect(url_for('page_url', id=url[0]))

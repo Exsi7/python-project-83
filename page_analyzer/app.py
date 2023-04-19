@@ -138,3 +138,8 @@ def checks(id):
             return redirect(url_for('page_url', id=url[0]))
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('page_url', id=url[0]))
+
+
+@app.errorhandler(422)
+def page_422(error):
+    return redirect((url_for('project_3'))

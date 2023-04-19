@@ -61,10 +61,10 @@ def url_post():
     flash('Некорректный URL', 'danger')
     if data == '':
         flash('URL обязателен', 'danger')
-    messages = get_flashed_messages()
+    messages = get_flashed_messages(with_categories=True)
     return render_template(
         'home.html',
-        messages = messages
+        messages=messages
     ), 422
 
 
